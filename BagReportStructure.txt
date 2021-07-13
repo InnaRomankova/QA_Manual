@@ -1,0 +1,35 @@
+ID
+
+Project
+
+Build number
+
+Summary
+
+Environment
+
+Description
+
+Pre Conditions
+
+STR
+
+Expected result
+
+Actual Result
+
+Attachment
+
+Severity
+
+Priority
+
+Reporter
+
+Assignee
+
+Status
+
+
+
+
