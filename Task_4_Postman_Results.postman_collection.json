@@ -625,7 +625,7 @@
 			"response": []
 		},
 		{
-			"name": "8_extra_task_part_1",
+			"name": "8_extra_task",
 			"event": [
 				{
 					"listen": "test",
@@ -652,128 +652,31 @@
 							"// Полученные данные сохраняем в формате json в переменную array_currencies: \r",
 							"let array_currencies = pm.response.json();\r",
 							"\r",
-							"let arr = [];\r",
-							"// Итеририруем список валют и сохраняем значения Cur_ID в массив:\r",
-							" array_currencies.forEach(function(e){\r",
-							"     arr.push(e.Cur_ID);\r",
-							"     //console.log(Cur_ID);\r",
-							"});\r",
-							"//console.log(arr);\r",
-							"pm.collectionVariables.set(\"array_Cur_ID\",arr);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "auth_token",
-							"value": "{{token}}",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}/currency",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"currency"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "8_extra_task_part_2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let array_currency_ID = [];\r",
-							"array_currency_ID = pm.collectionVariables.get(\"array_Cur_ID\");\r",
 							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    if(pm.response.to.have.status(200)){\r",
-							"        let jsonData = pm.response.json();\r",
-							"        if (jsonData.Cur_OfficialRate !=0){\r",
-							"            console.log(jsonData);\r",
-							"        }\r",
-							"    }\r",
+							"pm.test(\"Check response json has field Cur_OfficialRate\", function () {\r",
+							"   array_currencies.forEach(function(e){\r",
+							"       let Cur_ID = e.Cur_ID;\r",
+							"       let token = ' ';\r",
+							"       token = pm.environment.get(\"token\");\r",
+							"\r",
+							"       let postRequest = {\r",
+							"           url: 'http://162.55.220.72:5005/curr_byn',\r",
+							"           method: 'POST',\r",
+							"           header: {\r",
+							"               'Content-Type': 'multipart/form-data'\r",
+							"           },\r",
+							"           body: { mode: 'urlencoded', urlencoded: [\r",
+							"               { key:'auth_token', value: token}, \r",
+							"               {key: 'curr_code', value: Cur_ID}]\r",
+							"            }\r",
+							"       };\r",
+							"       pm.sendRequest(postRequest, (error, response) => {\r",
+							"           console.log(error ? error : response.json());\r",
+							"       });\r",
+							"    }); \r",
 							"});\r",
 							"\r",
-							"pm.test(\"Iteration condition\", function(){\r",
-							"    if(array_currency_ID.length != 0){\r",
-							"        array_currency_ID.splice(0,1);\r",
-							"        pm.collectionVariables.set(\"array_Cur_ID\", array_currency_ID);\r",
-							"        console.log(array_currency_ID);\r",
-							"    }else{\r",
-							"        postman.setNextRequest(null);  \r",
-							"    }\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"let array_Cur_ID = [];\r",
-							"array_Cur_ID = pm.collectionVariables.get(\"array_Cur_ID\");\r",
-							"let Cur_ID = array_Cur_ID[0];\r",
-							"console.log(Cur_ID);\r",
-							"pm.collectionVariables.set(\"Cur_ID\",Cur_ID);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "auth_token",
-							"value": "{{token}}",
-							"type": "text"
-						},
-						{
-							"key": "curr_code",
-							"value": "{{Cur_ID}}",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{url}}/curr_byn",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"curr_byn"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "8_extra_task_part_3",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"postman.setNextRequest(\"8_extra_task_part_2\");"
+							""
 						],
 						"type": "text/javascript"
 					}
