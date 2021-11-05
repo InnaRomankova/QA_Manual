@@ -1,4 +1,5 @@
 package postgreSQL;
+// Задание: Наполнить таблицу Employees в БД PostgreSQL 70 строками
 
 import java.io.File;
 import java.io.FileReader;
