@@ -1,8 +1,10 @@
 # DevTools
 
-__Home Work https://www.youtube.com/watch?v=u2cFrBTtUF4 (видео с выполнением домашнего задания)__
+### Выполнение:
 
-Задание:
+https://www.youtube.com/watch?v=u2cFrBTtUF4
+
+### Задание:
 
 1.  Открыть сайт http://itcareer.pythonanywhere.com/, открыть Chrome DevTools
 2.  Зайти в панель Elements.
