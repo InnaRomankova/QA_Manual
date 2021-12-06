@@ -2,7 +2,7 @@
 
 ### Выполнение:
 
-https://www.youtube.com/watch?v=u2cFrBTtUF4
+[![DevTools](https://user-images.githubusercontent.com/58884379/144811036-10cda061-044f-4fb2-8771-59c349b3dfc8.png)](https://www.youtube.com/watch?v=u2cFrBTtUF4)
 
 ### Задание:
 
